@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 260" role="img" aria-labelledby="catTitle">
+  <title id="catTitle">주황색 고양이</title>
+  <defs>
+    <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffb46b"/>
+      <stop offset="100%" stop-color="#f4913e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 꼬리 -->
+  <path d="M170 200 C215 200 225 150 200 135 C185 126 178 142 190 148 C205 158 198 182 170 186 Z" fill="#f4913e"/>
+  <path d="M190 148 C205 158 198 182 170 186" fill="none" stroke="#e07a2a" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- 몸통 -->
+  <ellipse cx="120" cy="195" rx="62" ry="50" fill="url(#fur)"/>
+  <ellipse cx="120" cy="205" rx="34" ry="30" fill="#fff3e3"/>
+
+  <!-- 앞발 -->
+  <ellipse cx="92" cy="238" rx="18" ry="12" fill="#ffb46b"/>
+  <ellipse cx="148" cy="238" rx="18" ry="12" fill="#ffb46b"/>
+  <path d="M84 240 v6 M92 240 v7 M100 240 v6 M140 240 v6 M148 240 v7 M156 240 v6" stroke="#e07a2a" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- 귀 -->
+  <path d="M52 70 L60 18 L100 55 Z" fill="#f4913e"/>
+  <path d="M188 70 L180 18 L140 55 Z" fill="#f4913e"/>
+  <path d="M62 66 L66 34 L92 58 Z" fill="#ffc9d6"/>
+  <path d="M178 66 L174 34 L148 58 Z" fill="#ffc9d6"/>
+
+  <!-- 머리 -->
+  <ellipse cx="120" cy="100" rx="72" ry="62" fill="url(#fur)"/>
+
+  <!-- 줄무늬 -->
+  <path d="M100 44 q20 -10 40 0" fill="none" stroke="#e07a2a" stroke-width="6" stroke-linecap="round"/>
+  <path d="M108 56 q12 -6 24 0" fill="none" stroke="#e07a2a" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- 눈 -->
+  <g class="cat-eyes">
+    <ellipse cx="92" cy="98" rx="13" ry="16" fill="#fff"/>
+    <ellipse cx="148" cy="98" rx="13" ry="16" fill="#fff"/>
+    <ellipse cx="94" cy="100" rx="8" ry="11" fill="#3a2a40"/>
+    <ellipse cx="150" cy="100" rx="8" ry="11" fill="#3a2a40"/>
+    <circle cx="97" cy="95" r="3.5" fill="#fff"/>
+    <circle cx="153" cy="95" r="3.5" fill="#fff"/>
+  </g>
+
+  <!-- 코와 입 -->
+  <path d="M112 118 h16 l-8 8 z" fill="#ff6f91"/>
+  <path d="M120 126 q-8 12 -18 4 M120 126 q8 12 18 4" fill="none" stroke="#3a2a40" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- 볼 홍조 -->
+  <ellipse cx="66" cy="122" rx="12" ry="7" fill="#ffb3c6" opacity="0.8"/>
+  <ellipse cx="174" cy="122" rx="12" ry="7" fill="#ffb3c6" opacity="0.8"/>
+
+  <!-- 수염 -->
+  <g stroke="#3a2a40" stroke-width="2.5" stroke-linecap="round">
+    <path d="M40 112 L82 118 M40 126 L82 124 M44 140 L82 130"/>
+    <path d="M200 112 L158 118 M200 126 L158 124 M196 140 L158 130"/>
+  </g>
+</svg>

@@ -1,0 +1,260 @@
+/* ===== 페이지 레이아웃 ===== */
+.layout {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(1rem, 4vw, 2.5rem) 1rem;
+  gap: 1.5rem;
+}
+
+.layout__header {
+  text-align: center;
+}
+
+.layout__title {
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.layout__subtitle {
+  margin-top: 0.4rem;
+  font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+  opacity: 0.75;
+}
+
+.layout__main {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.layout__footer {
+  opacity: 0.6;
+  font-size: 0.85rem;
+}
+
+.stage {
+  width: 100%;
+  min-height: 360px;
+  justify-content: flex-end;
+}
+
+.stage__hint {
+  font-weight: 600;
+  min-height: 1.5em;
+}
+
+/* ===== 컨트롤 패널 ===== */
+.controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--color-surface);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.controls__row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.controls__label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  opacity: 0.8;
+  display: flex;
+  justify-content: space-between;
+}
+
+.controls__moves {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.controls__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.controls__speed {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.controls__speed input[type='range'] {
+  width: 100%;
+  accent-color: var(--color-primary);
+  /* 터치 영역 확보 */
+  height: 32px;
+  cursor: pointer;
+}
+
+.controls__help {
+  font-size: 0.8rem;
+  opacity: 0.65;
+}
+
+kbd {
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  background: #fff;
+  border: 1px solid rgba(58, 42, 64, 0.25);
+  font-size: 0.85em;
+}
+
+/* 버튼 */
+.btn {
+  flex: 1 1 140px;
+  min-height: 48px; /* 터치 친화적 크기 */
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 700;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(58, 42, 64, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(58, 42, 64, 0.18);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-dark);
+}
+
+/* 동작 선택 칩 */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 44px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 2px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.chip:hover {
+  transform: translateY(-1px);
+}
+
+.chip--checked {
+  border-color: var(--color-primary);
+  background: #fff0f4;
+}
+
+.chip:has(input:focus-visible) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ===== 반응형 ===== */
+
+/* 모바일 (기본) */
+:root {
+  --cat-size: 200px;
+}
+
+.notes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* 태블릿 */
+@media (min-width: 600px) {
+  :root {
+    --cat-size: 260px;
+  }
+  .stage {
+    min-height: 420px;
+  }
+  .controls {
+    padding: 1.5rem 2rem;
+  }
+  .btn {
+    flex: 0 1 auto;
+    min-width: 150px;
+  }
+}
+
+/* 데스크탑 */
+@media (min-width: 1024px) {
+  :root {
+    --cat-size: 320px;
+  }
+  .layout__main {
+    max-width: 900px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+  .stage {
+    flex: 1 1 55%;
+    min-height: 480px;
+  }
+  .controls {
+    flex: 0 0 320px;
+    position: sticky;
+    top: 2rem;
+  }
+  .note {
+    font-size: 2.2rem;
+  }
+}
+
+/* 가로 모드 모바일: 세로 공간 절약 */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root {
+    --cat-size: 150px;
+  }
+  .stage {
+    min-height: 240px;
+  }
+  .layout {
+    gap: 0.75rem;
+  }
+}
+
+/* 터치 기기: hover 효과 제거 */
+@media (hover: none) {
+  .btn:hover,
+  .chip:hover {
+    transform: none;
+  }
+  .cat--hovered:not(.cat--playing) {
+    transform: none;
+  }
+}

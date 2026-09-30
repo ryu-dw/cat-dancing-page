@@ -1,0 +1,198 @@
+/* ===== 무대 & 고양이 기본 스타일 ===== */
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 1rem 1rem;
+}
+
+.stage__spotlight {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(80vw, 420px);
+  height: min(80vw, 420px);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cat {
+  --dance-duration: 1.2s;
+  position: relative;
+  z-index: 1;
+  width: var(--cat-size, 260px);
+  padding: 0;
+  border-radius: 50%;
+  /* GPU 가속 힌트 */
+  will-change: transform;
+  transform-origin: 50% 90%;
+  transition: filter 0.3s ease, transform 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.cat__image {
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 8px 12px rgba(58, 42, 64, 0.18));
+}
+
+.cat__shadow {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 70%;
+  height: 18px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(58, 42, 64, 0.2);
+  filter: blur(4px);
+  z-index: -1;
+  will-change: transform, opacity;
+}
+
+.cat--hovered:not(.cat--playing) {
+  transform: scale(1.04);
+}
+
+.cat--paused .cat__image {
+  filter: drop-shadow(0 8px 12px rgba(58, 42, 64, 0.18)) saturate(0.85);
+}
+
+/* ===== 재생 중일 때 동작별 keyframes 연결 ===== */
+.cat--playing {
+  animation-duration: var(--dance-duration);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.cat--playing .cat__shadow {
+  animation-duration: var(--dance-duration);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.cat--playing.cat--wiggle { animation-name: wiggle; }
+.cat--playing.cat--jump   { animation-name: jump; animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+.cat--playing.cat--spin   { animation-name: spin; animation-timing-function: linear; }
+.cat--playing.cat--bounce { animation-name: bounce; }
+.cat--playing.cat--party  { animation-name: party; }
+
+.cat--playing.cat--wiggle .cat__shadow { animation-name: shadow-wiggle; }
+.cat--playing.cat--jump .cat__shadow   { animation-name: shadow-jump; }
+.cat--playing.cat--spin .cat__shadow   { animation-name: shadow-pulse; }
+.cat--playing.cat--bounce .cat__shadow { animation-name: shadow-bounce; }
+.cat--playing.cat--party .cat__shadow  { animation-name: shadow-jump; }
+
+/* ===== keyframes 정의 ===== */
+
+/* 좌우 흔들기 */
+@keyframes wiggle {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); }
+  25%  { transform: translate3d(-18px, -6px, 0) rotate(-12deg); }
+  50%  { transform: translate3d(0, 0, 0) rotate(0deg); }
+  75%  { transform: translate3d(18px, -6px, 0) rotate(12deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+}
+
+/* 점프 */
+@keyframes jump {
+  0%   { transform: translate3d(0, 0, 0) scale(1, 1); }
+  15%  { transform: translate3d(0, 6px, 0) scale(1.08, 0.9); }
+  45%  { transform: translate3d(0, -70px, 0) scale(0.95, 1.08); }
+  60%  { transform: translate3d(0, -70px, 0) scale(0.95, 1.08); }
+  85%  { transform: translate3d(0, 0, 0) scale(1.06, 0.92); }
+  100% { transform: translate3d(0, 0, 0) scale(1, 1); }
+}
+
+/* 회전 */
+@keyframes spin {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(0.9); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* 통통 튀며 크기 변화 */
+@keyframes bounce {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  20%  { transform: translate3d(0, -25px, 0) scale(1.05); }
+  40%  { transform: translate3d(0, 0, 0) scale(0.96); }
+  60%  { transform: translate3d(0, -14px, 0) scale(1.03); }
+  80%  { transform: translate3d(0, 0, 0) scale(0.98); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+/* 파티: 이동 + 회전 + 크기 조합 */
+@keyframes party {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  20%  { transform: translate3d(-30px, -40px, 0) rotate(-20deg) scale(1.1); }
+  40%  { transform: translate3d(30px, 0, 0) rotate(20deg) scale(0.9); }
+  60%  { transform: translate3d(-20px, -60px, 0) rotate(-10deg) scale(1.15); }
+  80%  { transform: translate3d(20px, 0, 0) rotate(10deg) scale(0.95); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+}
+
+/* 그림자 keyframes */
+@keyframes shadow-wiggle {
+  0%, 50%, 100% { transform: translateX(-50%) scaleX(1); opacity: 0.2; }
+  25%, 75%      { transform: translateX(-50%) scaleX(0.9); opacity: 0.15; }
+}
+
+@keyframes shadow-jump {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.22; }
+  45%, 60% { transform: translateX(-50%) scale(0.55); opacity: 0.08; }
+}
+
+@keyframes shadow-bounce {
+  0%, 40%, 80%, 100% { transform: translateX(-50%) scale(1); opacity: 0.2; }
+  20%                { transform: translateX(-50%) scale(0.8); opacity: 0.12; }
+  60%                { transform: translateX(-50%) scale(0.9); opacity: 0.15; }
+}
+
+@keyframes shadow-pulse {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.2; }
+  50%      { transform: translateX(-50%) scale(0.85); opacity: 0.14; }
+}
+
+/* 배경 떠다니는 음표 */
+.note {
+  position: absolute;
+  font-size: 1.8rem;
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+}
+
+.cat--playing ~ .notes .note {
+  animation: float-note 2.4s ease-in-out infinite;
+}
+
+.note:nth-child(1) { left: 12%; top: 30%; animation-delay: 0s; }
+.note:nth-child(2) { left: 80%; top: 20%; animation-delay: 0.6s; }
+.note:nth-child(3) { left: 22%; top: 70%; animation-delay: 1.2s; }
+.note:nth-child(4) { left: 74%; top: 60%; animation-delay: 1.8s; }
+
+@keyframes float-note {
+  0%   { transform: translate3d(0, 0, 0) rotate(-10deg); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translate3d(0, -80px, 0) rotate(10deg); opacity: 0; }
+}
+
+/* 사용자가 "동작 줄이기"를 설정한 경우 */
+@media (prefers-reduced-motion: reduce) {
+  .cat--playing,
+  .cat--playing .cat__shadow,
+  .cat--playing ~ .notes .note {
+    animation-duration: calc(var(--dance-duration) * 2.5);
+  }
+  .cat--playing.cat--party  { animation-name: wiggle; }
+  .cat--playing.cat--spin   { animation-name: bounce; }
+}
